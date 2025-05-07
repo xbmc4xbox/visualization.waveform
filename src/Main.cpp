@@ -63,7 +63,7 @@ extern "C" void ADDON_Stop()
 //-- Audiodata ----------------------------------------------------------------
 // Called by XBMC to pass new audio data to the vis
 //-----------------------------------------------------------------------------
-extern "C" void AudioData(const short* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
+extern "C" void AudioData(const float* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
 {
 
   // Convert the audio data into a floating -1 to +1 range
@@ -72,8 +72,8 @@ extern "C" void AudioData(const short* pAudioData, int iAudioDataLength, float *
   {
     for (int i=0; i < iAudioDataLength; i+=2)
     {
-      g_fWaveform[0][ipos] = pAudioData[i] / 32768.0f;    // left channel
-      g_fWaveform[1][ipos] = pAudioData[i+1] / 32768.0f;  // right channel
+      g_fWaveform[0][ipos] = pAudioData[i];    // left channel
+      g_fWaveform[1][ipos] = pAudioData[i+1];  // right channel
       ipos++;
       if (ipos >= 512) break;
     }
